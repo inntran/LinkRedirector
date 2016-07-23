@@ -11,7 +11,7 @@ RSpec.describe Link, type: :model do
     end
 
     it 'is not valid if URL scheme is not http or https' do
-      link = FactoryGirl.build(:link, destination: "smtp://smtp.microsoft.com/someone")
+      link = FactoryGirl.build(:invalid_scheme_link)
       expect(link).not_to be_valid
     end
   end
@@ -30,7 +30,7 @@ RSpec.describe Link, type: :model do
 
   context 'computed attributes' do
     it 'is an external resource if hostname does not match internal DNS name' do
-      link = FactoryGirl.build(:link, destination: "https://facebook.com")
+      link = FactoryGirl.build(:facebook_link)
       expect(link.external?).to equal(true)
     end
 

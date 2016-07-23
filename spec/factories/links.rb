@@ -2,7 +2,14 @@ FactoryGirl.define do
   factory :link do
     slug "short_link"
     destination "http://internal.osqdu.org/"
-    click_count 1
-    last_click_at "2016-07-20 22:17:23"
+
+    factory :invalid_scheme_link do
+      slug "fb"
+      destination "smtp://smtp.outlook.com/"
+    end
+
+    factory :facebook_link do
+      destination "https://facebook.com"
+    end
   end
 end
