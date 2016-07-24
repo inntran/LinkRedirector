@@ -80,7 +80,7 @@ RSpec.describe LinksController, type: :controller do
       link = create(:link)
         put :update, params: {id: link.to_param, link: new_attributes}, session: valid_session
         link.reload
-        expect(assigns(:link).slice(:slug, :destination)).to eq({"slug"=>"fb", "destination"=>"https://facebook.com"})
+        expect(assigns(:link).slice(:slug, :destination).symbolize_keys).to eq({:slug=>"fb", :destination=>"https://facebook.com"})
       end
 
       it "assigns the requested link as @link" do
