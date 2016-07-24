@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe LinksController, type: :controller do
-  let(:valid_attributes) { FactoryGirl.attributes_for(:link) }
-  let(:invalid_attributes) { FactoryGirl.attributes_for(:invalid_scheme_link) }
+  let(:valid_attributes) { attributes_for(:link) }
+  let(:invalid_attributes) { attributes_for(:invalid_scheme_link) }
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # LinksController. Be sure to keep this updated too.
@@ -10,7 +10,7 @@ RSpec.describe LinksController, type: :controller do
 
   describe "GET #index" do
     it "assigns all links as @links" do
-      link = FactoryGirl.create(:link)
+      link = create(:link)
       get :index, params: {}, session: valid_session
       expect(assigns(:links)).to eq([link])
     end
@@ -18,7 +18,7 @@ RSpec.describe LinksController, type: :controller do
 
   describe "GET #show" do
     it "assigns the requested link as @link" do
-      link = FactoryGirl.create(:link)
+      link = create(:link)
       get :show, params: {id: link.to_param}, session: valid_session
       expect(assigns(:link)).to eq(link)
     end
@@ -33,7 +33,7 @@ RSpec.describe LinksController, type: :controller do
 
   describe "GET #edit" do
     it "assigns the requested link as @link" do
-      link = FactoryGirl.create(:link)
+      link = create(:link)
       get :edit, params: {id: link.to_param}, session: valid_session
       expect(assigns(:link)).to eq(link)
     end
@@ -74,23 +74,23 @@ RSpec.describe LinksController, type: :controller do
 
   describe "PUT #update" do
     context "with valid params" do
-      let(:new_attributes) { FactoryGirl.attributes_for(:facebook_link) }
+      let(:new_attributes) { attributes_for(:facebook_link) }
 
       it "updates the requested link" do
-      link = FactoryGirl.create(:link)
+      link = create(:link)
         put :update, params: {id: link.to_param, link: new_attributes}, session: valid_session
         link.reload
-        expect(assigns(:link)).to eq({:slug=>"fb", :destination=>"https://facebook.com"})
+        expect(assigns(:link).slice(:slug, :destination)).to eq({"slug"=>"fb", "destination"=>"https://facebook.com"})
       end
 
       it "assigns the requested link as @link" do
-      link = FactoryGirl.create(:link)
+      link = create(:link)
         put :update, params: {id: link.to_param, link: valid_attributes}, session: valid_session
         expect(assigns(:link)).to eq(link)
       end
 
       it "redirects to the link" do
-      link = FactoryGirl.create(:link)
+      link = create(:link)
         put :update, params: {id: link.to_param, link: valid_attributes}, session: valid_session
         expect(response).to redirect_to(link)
       end
@@ -98,13 +98,13 @@ RSpec.describe LinksController, type: :controller do
 
     context "with invalid params" do
       it "assigns the link as @link" do
-      link = FactoryGirl.create(:link)
+      link = create(:link)
         put :update, params: {id: link.to_param, link: invalid_attributes}, session: valid_session
         expect(assigns(:link)).to eq(link)
       end
 
       it "re-renders the 'edit' template" do
-      link = FactoryGirl.create(:link)
+      link = create(:link)
         put :update, params: {id: link.to_param, link: invalid_attributes}, session: valid_session
         expect(response).to render_template("edit")
       end
@@ -113,14 +113,14 @@ RSpec.describe LinksController, type: :controller do
 
   describe "DELETE #destroy" do
     it "destroys the requested link" do
-      link = FactoryGirl.create(:link)
+      link = create(:link)
       expect {
         delete :destroy, params: {id: link.to_param}, session: valid_session
       }.to change(Link, :count).by(-1)
     end
 
     it "redirects to the links list" do
-      link = FactoryGirl.create(:link)
+      link = create(:link)
       delete :destroy, params: {id: link.to_param}, session: valid_session
       expect(response).to redirect_to(links_url)
     end
