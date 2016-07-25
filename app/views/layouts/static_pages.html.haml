@@ -1,0 +1,26 @@
+!!!
+%html{lang: "en"}
+  %head
+    %meta{content: "text/html; charset=UTF-8", "http-equiv": "Content-Type"}/
+    %meta{name: "viewport", content: "width=device-width, initial-scale=1, shrink-to-fit=no"}/
+    %meta{content: "IE=edge", "http-equiv": "X-UA-Compatible"}/
+
+    %title
+      = yield :page_title
+      \- Link Redirector and Shortener
+    = csrf_meta_tags
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
+  %body
+    %nav.navbar.navbar-fixed-top.navbar-dark.bg-inverse
+      .container
+        = link_to 'Company Name', 'http://example.com', {class: "navbar-brand"}
+        %ul.nav.navbar-nav
+          %li.nav-item.active= link_to 'Home', root_path, {class: "nav-link"}
+          %li.nav-item= link_to 'Usage', '#', {class: "nav-link"}
+          %li.nav-item= link_to 'Statistics', page_path('statistics'), {class: "nav-link"}
+          %li.nav-item= link_to 'Team A', '#', {class: "nav-link"}
+          %li.nav-item= link_to 'Team B', '#', {class: "nav-link"}
+          %li.nav-item= link_to 'Team C', '#', {class: "nav-link"}
+    .container
+      = yield
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
